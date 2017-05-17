@@ -1,6 +1,12 @@
-Layla = require 'layla'
+Layla =
+  Object       : require 'layla/object'
+  String       : require 'layla/object/string'
+  QuotedString : require 'layla/object/string/quoted'
+  Plugin       : require 'layla/plugin'
+  TypeError    : require 'layla/error/type'
 
 ###
+TODO Maybe it should implement `Enumerable` so it can be iterated.
 ###
 class EnvObject extends Layla.Object
 
@@ -15,19 +21,15 @@ class EnvObject extends Layla.Object
     else
       throw new Layla.TypeError
 
-  ###
-  ###
-  '.::=': (right, value) ->
-    if value.isNull()
-      delete process.env[name]
-    else
-      process.env[name] = value.toString()
+
+# This is a singleton
+ENV = new EnvObject
 
 class EnvPlugin extends Layla.Plugin
 
   ###
   ###
   use: (context) ->
-    context.set 'Env', new EnvObject
+    context.set 'Env', ENV
 
 module.exports = EnvPlugin

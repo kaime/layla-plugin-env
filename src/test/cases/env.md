@@ -42,39 +42,3 @@
   }
   ~~~
 
-- Can write environment variables
-
-  ~~~ lay
-  use 'env'
-
-  Env::BAR = baz
-  Env::CORGE = 'corge!'.unquoted
-
-  env.read {
-    foo: Env::FOO
-    bar: Env::BAR.quoted
-    baz: Env::BAZ.unquoted
-    qux: Env::QUX
-    corge: Env::CORGE
-  }
-  ~~~
-
-  ~~~ css
-  env.read {
-    foo: "foo";
-    bar: "baz";
-    baz: 25;
-    qux: "";
-    corge: corge!;
-  }
-  ~~~
-
-- Can delete environment variables setting them to `null`
-
-  ~~~ lay
-  ~~~
-
-  ~~~ css
-  ~~~
-
-
