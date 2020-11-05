@@ -9,8 +9,7 @@
     foo: Env::FOO
     bar: Env::BAR.unquoted
     baz: Env::BAZ.unquoted
-    qux: Env::QUX
-    corge: Env::CORGE
+    qux: Env::QUX.quoted
   }
   ~~~
 
@@ -20,7 +19,6 @@
     bar: bar;
     baz: 25;
     qux: "";
-    corge: null;
   }
   ~~~
 
@@ -36,9 +34,8 @@
   ~~~
 
   ~~~ css
-  env.read[undefined] {
+  env.read {
     qux: false;
     corge: true;
   }
   ~~~
-

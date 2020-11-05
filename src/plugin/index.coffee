@@ -1,25 +1,28 @@
+process = require 'process'
+
 Layla =
-  Object       : require 'layla/object'
-  String       : require 'layla/object/string'
-  QuotedString : require 'layla/object/string/quoted'
-  Plugin       : require 'layla/plugin'
-  TypeError    : require 'layla/error/type'
+  Object:       require 'layla/lib/object'
+  Null:         require 'layla/lib/object/null'
+  String:       require 'layla/lib/object/string'
+  QuotedString: require 'layla/lib/object/string/quoted'
+  Plugin:       require 'layla/lib/plugin'
+  ValueError:   require 'layla/lib/error/value'
+
 
 ###
-TODO Maybe it should implement `Enumerable` so it can be iterated.
+TODO Make it `Enumerable` so it can be iterated.
 ###
 class EnvObject extends Layla.Object
 
   ###
   ###
-  '.::': (right) ->
-    if right instanceof Layla.String
-      if name of process.env
-        new Layla.QuotedString process.env[name]
-      else
-        Layla.Null.null
+  '.::': (context, name) ->
+    name = name.toString()
+
+    if name of process.env
+      return new Layla.QuotedString process.env[name]
     else
-      throw new Layla.TypeError
+      return Layla.Null.null
 
 
 # This is a singleton
